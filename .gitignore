@@ -1,0 +1,9 @@
+*.json
+*.out
+*.exe
+resDel
+resSea
+testDel
+testIns
+testSea
+main
