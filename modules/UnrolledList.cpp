@@ -13,7 +13,7 @@ void UnrolledList::BalanceInsert(Node *currentNode)
 {
     Node *newNode = new Node(capacityNode);
     int j = 0;
-    //memcpy(newNode->array,currentNode->array + (capacityNode + 1)/2, (currentNode->sizeNode - (capacityNode + 1)/2) * sizeof(int));
+    // memcpy(newNode->array,currentNode->array + (capacityNode + 1)/2, (currentNode->sizeNode - (capacityNode + 1)/2) * sizeof(int));
     for (int i = (capacityNode + 1) / 2; i < currentNode->sizeNode; i++, j++)
     {
         newNode->array[j] = currentNode->array[i];
@@ -307,11 +307,11 @@ void UnrolledList::Print()
     {
         for (int i = 0; i < currentNode->sizeNode; i++)
         {
-            std::cout << currentNode->array[i] << " ";
+            std::cout << currentNode->array[i] << ' ';
         }
         currentNode = currentNode->next;
     }
-    std::cout << std::endl;
+    std::cout << '\n';
 }
 
 void UnrolledList::PrintByNodes()
@@ -322,12 +322,12 @@ void UnrolledList::PrintByNodes()
         std::cout << "Node: ";
         for (int i = 0; i < currentNode->sizeNode; i++)
         {
-            std::cout << currentNode->array[i] << " ";
+            std::cout << currentNode->array[i] << ' ';
         }
         std::cout << '\n';
         currentNode = currentNode->next;
     }
-    std::cout << std::endl;
+    std::cout << '\n';
 }
 
 bool UnrolledList::isEmpty()

@@ -1,9 +1,10 @@
 #include "../modules/UnrolledList.h"
 #include <iostream>
+#include <sstream>
+#include <cassert>
 
 void test_InsertAtEnd()
 {
-	std::cout << "\nTesting inserting at end:\n\n";
 	UnrolledList myList;
 	int size = 5;
 	int val[size] = {6, 7, 5, 9, 13};
@@ -16,7 +17,6 @@ void test_InsertAtEnd()
 
 void test_InsertAtBeginning()
 {
-	std::cout << "\nTesting inserting at beginning:\n\n";
 	UnrolledList myList;
 	int size = 5;
 	int val[size] = {9, 13, 5, 6, 8};
@@ -29,7 +29,6 @@ void test_InsertAtBeginning()
 
 void test_InsertByIndex()
 {
-	std::cout << "\nTesting inserting by index:\n\n";
 	int size = 15;
 	int nums[size] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 	UnrolledList myList;
@@ -37,7 +36,6 @@ void test_InsertByIndex()
 	{
 		myList.InsertAtEnd(nums[i]);
 	}
-	std::cout << "STATE BEFORE INSERTING:\n";
 	myList.PrintByNodes();
 	myList.InsertByIndex(2, 100);
 	myList.PrintByNodes();
@@ -61,23 +59,30 @@ void test_InsertByIndex()
 
 int main()
 {
-	int k;
-	std::cout << "1 - Test for inserting at end\n2 - Test for inserting at beginning\n3 - Test for inserting by index\n";
-	std::cin >> k;
-	switch (k)
-	{
-	case 1:
-		test_InsertAtEnd();
-		break;
+	std::ostringstream oss;
+	std::streambuf *p_cout_streambuf = std::cout.rdbuf();
+	std::cout.rdbuf(oss.rdbuf());
+	test_InsertAtEnd();
+	std::cout.rdbuf(p_cout_streambuf);
+	assert(oss && oss.str() == "Node: 6 \n\nNode: 6 7 \n\nNode: 6 7 5 \n\nNode: 6 7 5 9 \n\nNode: 6 7 \nNode: 5 9 13 \n\n");
+	std::cout << "\nTesting inserting at end:\n";
+	std::cout << oss.str();
 
-	case 2:
-		test_InsertAtBeginning();
-		break;
+	std::ostringstream oss1;
+	std::streambuf *p_cout_streambuf1 = std::cout.rdbuf();
+	std::cout.rdbuf(oss1.rdbuf());
+	test_InsertAtBeginning();
+	std::cout.rdbuf(p_cout_streambuf1);
+	assert(oss1 && oss1.str() == "Node: 9 \n\nNode: 13 9 \n\nNode: 5 13 9 \n\nNode: 6 5 13 9 \n\nNode: 8 6 \nNode: 5 13 9 \n\n");
+	std::cout << "Testing inserting at beginning:\n";
+	std::cout << oss1.str();
 
-	case 3:
-		test_InsertByIndex();
-		break;
-	default:
-		break;
-	}
+	std::ostringstream oss2;
+	std::streambuf *p_cout_streambuf2 = std::cout.rdbuf();
+	std::cout.rdbuf(oss2.rdbuf());
+	test_InsertByIndex();
+	std::cout.rdbuf(p_cout_streambuf2);
+	assert(oss2 && oss2.str() == "Node: 1 2 \nNode: 3 4 \nNode: 5 6 \nNode: 7 8 \nNode: 9 10 \nNode: 11 12 \nNode: 13 14 15 \n\nNode: 1 2 \nNode: 100 3 4 \nNode: 5 6 \nNode: 7 8 \nNode: 9 10 \nNode: 11 12 \nNode: 13 14 15 \n\nNode: 1 101 2 \nNode: 100 3 4 \nNode: 5 6 \nNode: 7 8 \nNode: 9 10 \nNode: 11 12 \nNode: 13 14 15 \n\nNode: 102 1 101 2 \nNode: 100 3 4 \nNode: 5 6 \nNode: 7 8 \nNode: 9 10 \nNode: 11 12 \nNode: 13 14 15 \n\nNode: 102 1 101 2 \nNode: 200 100 3 4 \nNode: 5 6 \nNode: 7 8 \nNode: 9 10 \nNode: 11 12 \nNode: 13 14 15 \n\nNode: 102 1 101 2 \nNode: 200 201 \nNode: 100 3 4 \nNode: 5 6 \nNode: 7 8 \nNode: 9 10 \nNode: 11 12 \nNode: 13 14 15 \n\nNode: 102 1 101 2 \nNode: 200 201 \nNode: 100 3 4 \nNode: 5 6 \nNode: 7 8 \nNode: 9 10 \nNode: 300 11 12 \nNode: 13 14 15 \n\nNode: 102 1 101 2 \nNode: 200 201 \nNode: 100 3 4 \nNode: 5 6 \nNode: 7 8 \nNode: 9 10 \nNode: 300 11 301 12 \nNode: 13 14 15 \n\nNode: 102 1 101 2 \nNode: 200 201 \nNode: 100 3 4 \nNode: 5 6 \nNode: 7 8 \nNode: 9 10 \nNode: 300 11 301 12 \nNode: 13 14 15 400 \n\nIndex out of range\nIndex out of range\n");
+	std::cout << "Testing inserting at beginning:\n";
+	std::cout << oss2.str();
 }
