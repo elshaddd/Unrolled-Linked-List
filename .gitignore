@@ -2,6 +2,7 @@
 *.out
 *.exe
 resDel
+resIns
 resSea
 testDel
 testIns
